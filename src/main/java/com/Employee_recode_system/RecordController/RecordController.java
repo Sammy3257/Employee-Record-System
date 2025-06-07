@@ -44,6 +44,35 @@ public class RecordController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/Create_New_Records")
+    public List<Records> getEmployeeRecords(){
+        return recordRepository.findAll();
+    }
+
+    @PutMapping("/Create_New_Records/{id}")
+    public ResponseEntity<Map<String, String>> updateEmployeeRecord(@PathVariable Long id,
+                                                                    @RequestBody RecordRequest request){
+
+        Map<String, String> response = new HashMap<>();
+
+        Records records = recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        records.setFullname(request.getFullname());
+        records.setEmail(request.getEmail());
+        records.setDepartment(request.getDepartment());
+        records.setPosition(request.getPosition());
+        records.setSalary(request.getSalary());
+        records.setHire_Date(request.getHire_Date());
+
+
+        recordRepository.save(records);
+        response.put("message", "Employee Updated successfully");
+
+        return ResponseEntity.ok(response);
+    }
+
+
+
 
 
 }
