@@ -1,9 +1,16 @@
-package com.Employee_recode_system.dto;
+package com.Employee_recode_system.model;
 
-
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 
-public class RecordRequest {
+@Entity
+@Table(name = "Records")
+public class Records {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String fullname;
     private String email;
@@ -12,16 +19,26 @@ public class RecordRequest {
     private Double salary;
     private LocalDate hire_Date;
 
-    public RecordRequest() {
+
+    public Records() {
     }
 
-    public RecordRequest(String fullname, String email, String position, String department, Double salary, LocalDate hire_Date) {
+    public Records(Long id, String fullname, String email, String position, String department, Double salary, LocalDate hire_Date) {
+        this.id = id;
         this.fullname = fullname;
         this.email = email;
         this.position = position;
         this.department = department;
         this.salary = salary;
         this.hire_Date = hire_Date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFullname() {
@@ -71,4 +88,6 @@ public class RecordRequest {
     public void setHire_Date(LocalDate hire_Date) {
         this.hire_Date = hire_Date;
     }
+
+
 }
