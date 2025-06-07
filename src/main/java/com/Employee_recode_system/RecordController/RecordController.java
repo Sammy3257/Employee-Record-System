@@ -73,6 +73,19 @@ public class RecordController {
 
 
 
+    @DeleteMapping("/Create_New_Records/{id}")
+    public ResponseEntity<Map<String, String>> deleteEmployeeRecord(@PathVariable Long id) {
+        Map<String, String> response = new HashMap<>();
+
+        if (!recordRepository.existsById(id)){
+            response.put("message", "Employee not found");
+            ResponseEntity.status(400).body(response);
+        }
+
+        recordRepository.deleteById(id);
+        response.put("message", "Employee deleted successfully");
+        return ResponseEntity.ok(response);
+    }
 
 
 }
